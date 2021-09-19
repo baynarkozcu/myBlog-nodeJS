@@ -1,9 +1,10 @@
+const {validationResult} = require('express-validator');
+
 const loginView = (req, res, next) => {
     res.render('login', {layout: './layouts/auth_layouts'})
 }
 
 const loginUser = (req, res, next) => {
-    res.send("LOgin");
 }
 
 const registerView = (req, res, next) => {
@@ -11,11 +12,16 @@ const registerView = (req, res, next) => {
 }
 
 const registerUser = (req, res, next) => {
-    res.send("Rewgister");
+    const errors = validationResult(req);
+    console.log(errors);
+
+    if(!errors.isEmpty){
+        res.render('register', {layout: './layouts/auth_layouts', errors: errors.array()});
+    }
 }
 
 const forgetPasswordView = (req, res, next) => {
-    res.render('forget_password', {layout: './layouts/auth_layouts'})
+    res.render('forgetPassword', {layout: './layouts/auth_layouts'})
 }
 
 const forgetPasswordUser = (req, res, next) => {

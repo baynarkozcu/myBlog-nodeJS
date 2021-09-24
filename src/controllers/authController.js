@@ -1,4 +1,7 @@
 const {validationResult} = require('express-validator');
+const User = require('../models/userModel');
+
+
 
 const loginView = (req, res, next) => {
     res.render('login', {layout: './layouts/auth_layouts'})
@@ -11,12 +14,34 @@ const registerView = (req, res, next) => {
     res.render('register', {layout: './layouts/auth_layouts'})
 }
 
-const registerUser = (req, res, next) => {
-    const errors = validationResult(req);
-    console.log(errors);
+const registerUser =  async (req, res, next) => {
+    const validationErrors = validationResult(req);
 
-    if(!errors.isEmpty){
-        res.render('register', {layout: './layouts/auth_layouts', errors: errors.array()});
+    if(!validationErrors.isEmpty()){
+        //res.render('register', {layout: './layouts/auth_layouts', errors: errors.array()});
+        req.flash('validationErrors', validationErrors.array());
+        req.flash('username', req.body.username);
+        req.flash('email', req.body.email);
+        req.flash('password', req.body.password);
+        res.redirect('/register');
+    }else{
+        const user = await User.findOne({email: req.body.email});
+        if(user){
+            req.flash('validationErrors', [{msg: "Böyle Bir Email Zaten Var.."}]);
+            req.flash('username', req.body.username);
+            req.flash('email', req.body.email);
+            req.flash('password', req.body.password);
+            res.redirect('/register');
+        }else{
+            const  newUser = new User({
+                username: req.body.username,
+                email: req.body.email,
+                password: req.body.password
+            });
+            await newUser.save();
+            req.flash('validationErrors', [{msg: "Kayıt Başarılı..", result : 'success'}]);
+            res.redirect('/register');
+        }
     }
 }
 

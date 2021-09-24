@@ -1,4 +1,4 @@
-    <!-- BEGIN: Content-->
+<!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-overlay"></div>
         <div class="content-wrapper">
@@ -23,26 +23,30 @@
                                         <a href="https://github.com/baynarkozcu" class="btn btn-social-icon mr-1 mb-1 btn-outline-github"><span class="la la-github font-medium-4"></span></a>
                                     </div>
 
+                                    <% if (locals.validationErrors != null) { %>
+                                        <%- include('./partials/errorMessages')  %> 
+                                    <% } %>
+
 
                                     <div class="card-body">
                                         <form class="form-horizontal" action="/register" method="POST" novalidate>
 
                                             <fieldset class="form-group position-relative has-icon-left">
-                                                <input type="text" class="form-control"  name="username" id="user-name" placeholder="User Name">
+                                                <input type="text" class="form-control" value="<%- typeof username != 'undefined' ? username : '' %>"  name="username" id="user-name" placeholder="User Name">
                                                 <div class="form-control-position">
                                                     <i class="la la-user"></i>
                                                 </div>
                                             </fieldset>
 
                                             <fieldset class="form-group position-relative has-icon-left">
-                                                <input type="text" class="form-control" email="email" id="user-email" placeholder="Your Email Address" >
+                                                <input type="text" class="form-control" value="<%- typeof email != 'undefined' ? email : '' %>" name="email" id="user-email" placeholder="Your Email Address" >
                                                 <div class="form-control-position">
                                                     <i class="la la-envelope"></i>
                                                 </div>
                                             </fieldset>
 
                                             <fieldset class="form-group position-relative has-icon-left">
-                                                <input type="password" class="form-control" name="password" id="user-password" placeholder="Enter Password" >
+                                                <input type="password" class="form-control" value="<%-typeof password != 'undefined' ? password : '' %>" name="password" id="user-password" placeholder="Enter Password" >
                                                 <div class="form-control-position">
                                                     <i class="la la-key"></i>
                                                 </div>

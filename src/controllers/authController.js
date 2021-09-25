@@ -228,10 +228,11 @@ const resetPasswordView = async (req, res) => {
 
             jwt.verify(token,secretKey, async(e, decoded)=>{
                 if(e){
+                    console.log("Error"+e);
                     req.flash('validationErrors', [{msg:"Geçersiz veya Süresi Geçmiş Token..."}]);
                     res.redirect('/forget-password');
                 }else{
-                    console.log("Burada");
+                    res.render('resetPassword', {userID, token, layout: './layouts/auth_layouts'})
                 }
             });
 
@@ -247,6 +248,26 @@ const resetPasswordView = async (req, res) => {
     }
 }
 
+const resetPassword = async (req, res) => {
+    const validationErrors = validationResult(req);
+
+
+    if(!validationErrors.isEmpty()){
+        req.flash('validationErrors', validationErrors.array());
+        res.redirect('/reset-password/'+req.body.userID+'/'+req.body.token);
+    }else{
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        const result = await User.findByIdAndUpdate(req.body.userID, {password:hashedPassword});
+        if(!result){
+            req.flash('validationErrors', [{msg: "Şifre Sıfırlamada Bir Hata Meydana Geldi Lütfen Daha Sonra Tekrar Deneyin.."}]);
+            res.redirect('/reset-password/'+req.body.userID+'/'+req.body.token);
+        }else{
+            req.flash('validationErrors', [{msg: "Şifreniz Başarıyla Sıfırlanmıştır..", result : 'success'}]);
+            res.redirect('/login');
+        }
+    }
+}
+
 
 module.exports = {
     loginView,
@@ -258,4 +279,5 @@ module.exports = {
     logout,
     verify,
     resetPasswordView,
+    resetPassword
 }

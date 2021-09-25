@@ -31,9 +31,25 @@ const emailValidation = ()=>{
     ];
 }
 
+const resetPassword = ()=>{
+    return [
+        body('password').trim()
+            .isLength({min:8}).withMessage("Şifre Minimum 8 Karakter Olmalıdır.."),
+
+        body('repassword').trim()
+            .custom((value, {req})=>{
+                if(value !== req.body.password){
+                    throw new Error('Şifre ve Şifre Tekrar Aynı Olmalıdır..');
+                }
+                return true;
+            })
+    ];
+}
+
 
 module.exports = {
     newUserValidation,
     userLogin,
     emailValidation,
+    resetPassword,
 }

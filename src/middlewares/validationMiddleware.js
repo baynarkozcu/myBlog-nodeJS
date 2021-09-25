@@ -24,8 +24,16 @@ const userLogin = ()=>{
     ];
 }
 
+const emailValidation = ()=>{
+    return [
+        body('email').trim()
+        .isEmail().withMessage("Geçerli Bir Email Giriniz.."),
+    ];
+}
+
 
 module.exports = {
     newUserValidation,
-    userLogin
+    userLogin,
+    emailValidation,
 }

@@ -11,9 +11,14 @@ router.get('/register',authMiddleware.currentUser, authController.registerView);
 router.post('/register',authMiddleware.currentUser, validator.newUserValidation(), authController.registerUser);
 
 router.get('/forget-password',authMiddleware.currentUser, authController.forgetPasswordView);
-router.post('/forget-password',authMiddleware.currentUser, authController.forgetPasswordUser);
+router.post('/forget-password',authMiddleware.currentUser, validator.emailValidation(), authController.forgetPasswordUser);
+
+router.get('/reset-password', authMiddleware.currentUser, authController.resetPasswordView);
+router.get('/reset-password/:id/:token', authMiddleware.currentUser, authController.resetPasswordView);
 
 router.get('/logout',authMiddleware.authMiddleware, authController.logout);
+
+router.get('/verify',authMiddleware.currentUser, authController.verify );
 
 
 module.exports = router;

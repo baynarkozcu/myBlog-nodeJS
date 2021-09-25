@@ -16,13 +16,16 @@ const UserSchema = new Schema({
         lowercase: true,
         unique: true
     },
+    emailConfirmation: {
+        type: Boolean,
+        default: false,
+    },
     password: {
         type: String,
         required: true,
         trim: true,
-        lowercase: true,
-    }
-}, {timestamps: true});
+    },
+},  {timestamps: true});
 
 const User = mongoose.model('User', UserSchema);
 

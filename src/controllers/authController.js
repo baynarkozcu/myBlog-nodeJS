@@ -1,6 +1,9 @@
 const {validationResult} = require('express-validator');
 const User = require('../models/userModel');
 
+const passport = require('passport');
+require('../config/passportLocal')(passport);
+
 
 
 const loginView = (req, res, next) => {
@@ -8,6 +11,26 @@ const loginView = (req, res, next) => {
 }
 
 const loginUser = (req, res, next) => {
+
+    const validationErrors = validationResult(req);
+ 
+
+    if(!validationErrors.isEmpty()){
+        //res.render('register', {layout: './layouts/auth_layouts', errors: errors.array()});
+        req.flash('validationErrors', validationErrors.array());
+        req.flash('email', req.body.email);
+        req.flash('password', req.body.password);
+        res.redirect('/login');
+    }else{
+        passport.authenticate('local', {
+            successRedirect: '/panel',
+            failureRedirect: '/login',
+            failureFlash: true
+        })(req, res, next);
+    }
+
+
+
 }
 
 const registerView = (req, res, next) => {
@@ -53,6 +76,15 @@ const forgetPasswordUser = (req, res, next) => {
     res.send("FOrget")
 }
 
+const logout = (req, res, next) => {
+    
+    req.logout();
+    req.session.destroy((error)=>{
+        res.clearCookie('connect.sid');
+        res.render('login', {layout: './layouts/auth_layouts'});
+    });
+}
+
 
 module.exports = {
     loginView,
@@ -61,4 +93,5 @@ module.exports = {
     registerUser,
     forgetPasswordView,
     forgetPasswordUser,
+    logout
 }

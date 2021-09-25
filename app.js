@@ -8,12 +8,8 @@ const expressLayouts = require('express-ejs-layouts');
 require('./src/config/mongoDB');
 const path = require('path');
 const authRouter = require('./src/routers/authRouter');
-
-const MongoDBStore = require('connect-mongodb-session')(session);
-const sessionStore = new MongoDBStore({
-    uri: process.env.MONGODB_CONNECTION_STRING,
-    collection: 'sessions'
-})
+const adminRouter = require('./src/routers/adminRouter');
+const passport = require('passport');
 
 
 app.use(express.urlencoded({extended: true}));
@@ -22,6 +18,14 @@ app.use(expressLayouts);
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, './src/views'));
+
+
+const MongoDBStore = require('connect-mongodb-session')(session);
+const sessionStore = new MongoDBStore({
+    uri: process.env.MONGODB_CONNECTION_STRING,
+    collection: 'sessions'
+})
+
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -36,13 +40,13 @@ app.use((req,res, next)=>{
     res.locals.username = req.flash('username');
     res.locals.email = req.flash('email');
     res.locals.password = req.flash('password');
+    res.locals.loginErrors = req.flash('error');
     next();
 });
-
-
-
-
+app.use(passport.initialize());
+app.use(passport.session());
 app.use('/', authRouter);
+app.use('/panel', adminRouter);
 
 app.listen(process.env.PORT || 3000, ()=>{
     console.log(`${process.env.PORT} Listening`);

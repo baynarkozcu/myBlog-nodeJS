@@ -22,7 +22,7 @@ const UserSchema = new Schema({
         trim: true,
         lowercase: true,
     }
-});
+}, {timestamps: true});
 
 const User = mongoose.model('User', UserSchema);
 

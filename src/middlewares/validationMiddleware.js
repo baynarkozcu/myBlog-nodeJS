@@ -13,7 +13,19 @@ const newUserValidation = ()=>{
     ];
 }
 
+const userLogin = ()=>{
+    return [
+        body('email').trim()
+            .isEmail().withMessage("Geçerli Bir Email Giriniz.."),
+        
+
+        body('password').trim()
+            .isLength({min:8}).withMessage("Şifre Minimum 8 Karakter Olmalıdır.."),
+    ];
+}
+
 
 module.exports = {
     newUserValidation,
+    userLogin
 }

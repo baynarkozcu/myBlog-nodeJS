@@ -1,7 +1,11 @@
 const router = require('express').Router();
 const authController = require('../controllers/authController');
+const adminController = require('../controllers/adminController');
 const validator = require('../middlewares/validationMiddleware');
 const authMiddleware = require('../middlewares/authMiddleware');
+
+
+router.get('/',authMiddleware.authMiddleware,adminController.homePage );
 
 
 router.get('/login',authMiddleware.currentUser,  authController.loginView);

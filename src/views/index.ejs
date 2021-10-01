@@ -12,80 +12,44 @@
             <div class="content-body">
                 <!-- Bank Stats -->
                 <section id="bank-cards" class="bank-cards">
-                    <div class="row match-height">
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                            <div class="card bank-card pull-up">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-5 text-left">
-                                                <h3 class="mb-0">$1.2K</h3>
-                                                <p class="text-light">per Ounce</p>
-                                                <h4 class="warning mt-1 text-bold-500">Gold</h4>
-                                            </div>
-                                            <div class="col-7">
-                                                <div class="float-right">
-                                                    <canvas id="gold-chart" class="height-75"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
+                    <!-- Language Card -->
+                    <h3>Languages I Usage</h3>
+                    <div class="row match-height justify-content-center">
+                        <% languages.forEach(language => { %>
+                            <%- include('./partials/languageCard', {language})  %> 
+                        <% }) %>
+                    </div>
+
+                    
+
+                    <h3 class="card-title">Databases I Usage</h3>
+                    <div class="col-xl-12 col-lg-8 col-md-6">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card card-shadow">
+                                    <div class="card-header card-header-transparent">
+                                        
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                            <div class="card bank-card pull-up">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-5 text-left">
-                                                <h3 class="mb-0">$14.66</h3>
-                                                <p class="text-light">per Ounce</p>
-                                                <h4 class="info mt-1 text-bold-500">Silver</h4>
-                                            </div>
-                                            <div class="col-7">
-                                                <div class="float-right">
-                                                    <canvas id="silver-chart" class="height-75"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                            <div class="card bank-card pull-up">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-5 text-left">
-                                                <h3 class="mb-0">$0.88</h3>
-                                                <p class="text-light">per Unit</p>
-                                                <h4 class="danger mt-1 text-bold-500">USD</h4>
-                                            </div>
-                                            <div class="col-7">
-                                                <div class="float-right">
-                                                    <canvas id="euro-chart" class="height-75"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                            <div class="card bank-card pull-up">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-5 text-left">
-                                                <h3 class="mb-0">$6.5K</h3>
-                                                <p class="text-light">per unit</p>
-                                                <h4 class="success mt-1 text-bold-500">EURO</h4>
-                                            </div>
-                                            <div class="col-7">
-                                                <div class="float-right">
-                                                    <canvas id="bitcoin-chart" class="height-75"></canvas>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                        <div class="card bank-card pull-up">
+                                            <div class="card-content">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-3 text-center">
+                                                            <img src="https://img.icons8.com/color/75/000000/mysql-logo.png"/>
+                                                        </div>
+                                                        <div class="col-3 text-center">
+                                                            <img src="https://img.icons8.com/color/75/000000/mongodb.png"/>
+                                                        </div>
+                                                        <div class="col-3 text-center">
+                                                            <img src="https://img.icons8.com/color/75/000000/postgreesql.png"/>
+                                                        </div>
+                                                        <div class="col-3 text-center">
+                                                            <img src="https://img.icons8.com/color/75/000000/redis.png"/>
+                                                        </div>  
+
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -94,34 +58,39 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xl-9 col-lg-8 col-md-12">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="card card-shadow">
-                                        <div class="card-header card-header-transparent">
-                                            <h4 class="card-title">Transaction Reports</h4>
-                                            <ul class="nav nav-pills nav-pills-rounded chart-action float-right btn-group" role="group">
-                                                <li class="nav-item">
-                                                    <a class="active nav-link" data-toggle="tab" href="#scoreLineToDay">Day</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#scoreLineToWeek">Week</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#scoreLineToMonth">Month</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="widget-content tab-content bg-white p-20">
-                                            <div class="ct-chart tab-pane active scoreLineShadow" id="scoreLineToDay"></div>
-                                            <div class="ct-chart tab-pane scoreLineShadow" id="scoreLineToWeek"></div>
-                                            <div class="ct-chart tab-pane scoreLineShadow" id="scoreLineToMonth"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
+
+                    <!-- Social Accounts -->
+                    <div class="col-md-12 row justify-content-center">
+                        <div class="col-3 text-center">
+                            <img src="https://img.icons8.com/color/48/000000/facebook.png"/>
                         </div>
+                        <div class="col-3 text-center">
+                            <img src="https://img.icons8.com/fluency/48/000000/instagram-new.png"/>                        
+                        </div>
+                        <div class="col-3 text-center">
+                            <img src="https://img.icons8.com/fluency/48/000000/twitter.png"/>                        
+                        </div>
+                        <div class="col-3 text-center">
+                            <img src="https://img.icons8.com/color/48/000000/linkedin.png"/>                        
+                        </div>
+                        <div class="col-3 text-center">
+                            <img src="https://img.icons8.com/external-justicon-flat-justicon/48/000000/external-whatsapp-social-media-justicon-flat-justicon.png"/>                                                  
+                        </div>
+                        <div class="col-3 text-center">
+                            <img src="https://img.icons8.com/ios-glyphs/48/000000/github.png"/>                        
+                        </div>
+                        <div class="col-3 text-center">
+                            <img src="https://img.icons8.com/color/48/000000/gmail-new.png"/>                       
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="row">
+
                         <div class="col-xl-3 col-lg-4 col-md-12">
                             <div class="chart-stats text-center my-3">
                                 <div class="card bg-gradient-directional-primary">

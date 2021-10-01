@@ -23,8 +23,6 @@ module.exports = function(passport) {
             }
 
             const passwordCheck = await bcrypt.compare(password, user.password);
-            console.log(user.password);
-            console.log(password);
 
             if(!passwordCheck){
                 return done(null, false, { message: "Şifre Yanlış"});

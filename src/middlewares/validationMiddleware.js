@@ -46,18 +46,6 @@ const resetPassword = ()=>{
     ];
 }
 
-// const addCV = ()=>{
-//     return [
-//         body('cv').trim()
-//             .custom((value, {req})=>{
-//                 console.log(value);
-//                 if(!value.endsWith('.pdf')){
-//                     throw new Error('Seçilen Dosya pdf Formatında Olmalıdır.');
-//                 }
-//                 return true; 
-//             })
-//     ];
-// }
 
 
 module.exports = {

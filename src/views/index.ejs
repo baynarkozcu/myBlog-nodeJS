@@ -2,7 +2,7 @@
 
 <%- include('./partials/navigationBar')  %> 
 
-<% if (locals.validationErrors != null || locals.loginErrors != null) { %>
+<% if (locals.validationErrors != null) { %>
     <%- include('./partials/errorMessages')  %> 
 <% } %>
 

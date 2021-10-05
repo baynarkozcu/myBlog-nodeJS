@@ -6,7 +6,6 @@ const multerConfig = require('../config/multerConfig');
 
 
 router.get('/', authMiddleware.authMiddleware,  adminController.homePage);
-//router.post('/addCV', authMiddleware.authMiddleware, validator.addCV(), adminController.addCV);
 router.post('/addCV', authMiddleware.authMiddleware, multerConfig.single('cv'), adminController.addCV);
 
 

@@ -1,6 +1,11 @@
 const {validationResult} = require('express-validator');
+const Cv = require('../models/cv');
 
-const homePage = (req, res, next)=>{
+const homePage = async (req, res, next)=>{
+
+    const cv = await Cv.findOne({}).sort({createdAt:'desc'});
+    const admin = req.user;
+
     const languages = [
         {
             name: 'FLutter',
@@ -42,16 +47,21 @@ const homePage = (req, res, next)=>{
     ];
 
 
-    res.render('index', {layout: './layouts/panel_layouts', languages});
+    res.render('index', {layout: './layouts/panel_layouts', languages, cv, admin});
 }
 
-const addCV = (req,res, next)=>{
+const addCV = async(req,res, next)=>{
 
     try{
         if(req.file == undefined){
             req.flash('validationErrors', [{msg: "Sadece PDF Formatındaki Dosyalar Yüklenebilir",}]);
             res.redirect('/panel'); 
         }else{
+            console.log(req.file);
+            const  cv = new Cv({
+                currentCV: req.file.filename
+            });
+            await cv.save(); 
             req.flash('validationErrors', [{msg: "CV Başarıyla Yüklenmiştir..", result : 'success'}]);
             res.redirect('/panel');
         } 

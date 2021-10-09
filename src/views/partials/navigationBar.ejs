@@ -188,9 +188,14 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li data-menu="">
-                            <button type="button" class="dropdown-item" data-toggle="modal" data-target="#exampleModalCenter">
-                                Add New CV
-                              </button>
+                            <% if (admin.username == "baynarkozcu") { %>
+                                <button type="button"class="dropdown-item" data-toggle="modal" data-target="#exampleModalCenter">
+                                    Add New CV
+                                </button>
+                            <% } %>
+                            <a type="button" class="dropdown-item" href="<%- cv.currentCV  %> ">
+                                Download CV
+                            </a>
                         </li>
                     </ul>
                 </li>

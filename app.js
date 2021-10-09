@@ -16,6 +16,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(expressLayouts);
 app.use(express.static('public'));
+app.use(express.static('src/uploads/cvs'));
+//app.use("/uploads", express.static(path.join(__dirname,'src/uploads/cvs')));
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, './src/views'));
 
